@@ -8,7 +8,7 @@ import PostsList from "views/containers/home/components/PostsList";
 
 class App extends React.PureComponent {
   render() {
-    const { posts, searchPosts } = this.props;
+    const { posts, searchPosts, loading, error } = this.props;
     return (
       <ViewContainer>
         <Header as="h2" icon inverted textAlign="center">
@@ -17,7 +17,7 @@ class App extends React.PureComponent {
         </Header>
         <Divider />
         <PostsSearch onChange={searchPosts} />
-        <PostsList posts={posts} />
+        <PostsList posts={posts.items} loading={loading} error={error} />
       </ViewContainer>
     );
   }
@@ -26,6 +26,8 @@ class App extends React.PureComponent {
 const mapStateToProps = (state) => {
   return {
     posts: searchSelectors.getPostsData(state),
+    loading: searchSelectors.getPostsLoading(state),
+    error: searchSelectors.getPostsError(state),
   };
 };
 
