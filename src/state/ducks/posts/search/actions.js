@@ -4,8 +4,9 @@ const clearSearchedPosts = () => ({
   type: SearchActionTypes.SEARCH_POSTS_CLEAR,
 });
 
-const searchPosts = () => ({
+const searchPosts = (input) => ({
   type: SearchActionTypes.SEARCH_POSTS,
+  payload: input
 });
 
 const searchPostsFulfilled = (response = {}) => {

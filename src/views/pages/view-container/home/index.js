@@ -1,23 +1,24 @@
 import React from "react";
 import { connect } from "react-redux";
+import ViewContainer from "views/pages/view-container";
 import { searchActions, searchSelectors } from "state/ducks/posts/search";
-import { Container, Divider, Header, Icon } from "semantic-ui-react";
-import PostsSearch from "components/PostsSearch";
-import PostsList from "components/PostsList";
+import { Divider, Header, Icon } from "semantic-ui-react";
+import PostsSearch from "views/containers/home/components/PostsSearch";
+import PostsList from "views/containers/home/components/PostsList";
 
 class App extends React.PureComponent {
   render() {
     const { posts, searchPosts } = this.props;
     return (
-      <Container className="app">
+      <ViewContainer>
         <Header as="h2" icon inverted textAlign="center">
           <Icon name="book" />
           Post Searcher
         </Header>
         <Divider />
         <PostsSearch onChange={searchPosts} />
-        <PostsList posts={posts.items} />
-      </Container>
+        <PostsList posts={posts} />
+      </ViewContainer>
     );
   }
 }

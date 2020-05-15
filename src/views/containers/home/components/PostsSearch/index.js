@@ -8,7 +8,7 @@ export default function PostsSearch({ onChange }) {
       <Grid.Column width={8}>
         <Input
           icon="search"
-          onChange={onChange}
+          onChange={e => onChange(e.target.value)}
           fluid
           placeholder="Search..."
         />

@@ -9,11 +9,10 @@ import { createLogger } from "redux-logger";
 import { composeWithDevTools } from "redux-devtools-extension/developmentOnly";
 
 import rootReducer, { rootEpic } from "state";
+import Router from "utils/router";
 
 import "semantic-ui-css/semantic.min.css";
 import "styles/main.scss";
-
-import App from "./App";
 
 const history = createBrowserHistory();
 const epicMiddleware = createEpicMiddleware({});
@@ -37,7 +36,7 @@ epicMiddleware.run(rootEpic);
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <App />
+      <Router />
     </ConnectedRouter>
   </Provider>,
   document.getElementById("root")

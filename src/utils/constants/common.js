@@ -6,4 +6,8 @@ const API_PATHS = {
   COMMENTS: "/comments",
 };
 
-export { BASE_URL, API_PATHS };
+const ROUTE_PATHS = {
+  HOME: '/'
+}
+
+export { BASE_URL, API_PATHS, ROUTE_PATHS };
