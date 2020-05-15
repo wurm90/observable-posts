@@ -1,14 +1,18 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Grid, Input } from "semantic-ui-react";
 
-export default function PostsSearch({ onChange }) {
+import { searchActions } from "state/ducks/posts/search";
+
+function PostsSearch(props) {
+  const { searchPosts } = props;
   return (
     <Grid columns={3}>
       <Grid.Column width={4}></Grid.Column>
       <Grid.Column width={8}>
         <Input
           icon="search"
-          onChange={e => onChange(e.target.value)}
+          onChange={(e) => searchPosts(e.target.value)}
           fluid
           placeholder="Search..."
         />
@@ -17,3 +21,7 @@ export default function PostsSearch({ onChange }) {
     </Grid>
   );
 }
+
+export default connect(null, {
+  searchPosts: searchActions.searchPosts,
+})(PostsSearch);

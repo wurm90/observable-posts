@@ -7,3 +7,15 @@ body {
 .view-container {
   padding: 2rem 0 0 0;
 }
+
+.writer-container {
+  position: relative;
+  display: inline-block;
+  width: auto;
+
+  .ui.loader {
+    position: absolute;
+    left: 80px;
+  }
+
+}
