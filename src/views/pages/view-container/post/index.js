@@ -15,7 +15,11 @@ import {
   selectPostActions,
   selectPostSelectors,
 } from "state/ducks/posts/selected";
+import {
+  listPostCommentsActions
+} from "state/ducks/posts/comments";
 import Writer from "views/containers/common/components/Writer";
+import Comments from "views/containers/post/components/Comments";
 
 class Post extends React.PureComponent {
   componentDidMount() {
@@ -24,8 +28,10 @@ class Post extends React.PureComponent {
         params: { id },
       },
       selectPost,
+      listComments
     } = this.props;
     selectPost(id);
+    listComments(id);
   }
   render() {
     const { loading, post, goBack } = this.props;
@@ -51,6 +57,7 @@ class Post extends React.PureComponent {
             <Writer author={post.created_by} />
           </Header>
         </Segment>
+        <Comments />
       </ViewContainer>
     );
   }
@@ -64,5 +71,6 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   selectPost: selectPostActions.selectPost,
+  listComments: listPostCommentsActions.listComments,
   goBack,
 })(Post);

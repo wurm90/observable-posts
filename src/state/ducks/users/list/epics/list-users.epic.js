@@ -17,17 +17,15 @@ import { API_PATHS } from "utils/constants";
 const listUsersEpic = (action$, state$) =>
   action$.pipe(
     ofType(ListActionTypes.LIST_USERS),
-    withLatestFrom(state$.pipe(pluck("users", "list", "data", "items"))),
+    withLatestFrom(state$.pipe(pluck("users", "list", "data"))),
     filter(([action, data]) => {
-      console.log(data);
-      return data.length === 0;
+      return data.items.length === 0;
     }),
     withLatestFrom(state$.pipe(pluck("config", "apiBase"))),
     switchMap(([{ payload }, apiBase]) =>
       concat(
         of(listActions.listUsersLoading()),
         ajax.getJSON(`${apiBase}${API_PATHS.USERS}`).pipe(
-          delay(5000),
           map((response) => listActions.listUsersFulfilled(response)),
           catchError((err) => of(listActions.listUsersFailed("API Error")))
         )
