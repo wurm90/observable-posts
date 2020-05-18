@@ -5,9 +5,6 @@ import { Container } from "semantic-ui-react";
 import { listActions } from "state/ducks/users/list";
 
 class ViewContainer extends React.PureComponent {
-  componentDidMount() {
-    this.props.listUsers();
-  }
   render() {
     return (
       <Container className="view-container">

@@ -24,8 +24,8 @@ const searchPostsEpic = (action$, state$) =>
     ofType(SearchActionTypes.SEARCH_POSTS),
     debounceTime(750),
     filter(({ payload }) => payload.trim() !== ""),
-    withLatestFrom(state$.pipe(pluck("config", "apiBase")), state$.pipe(pluck("users", "list"))),
-    switchMap(([{ payload }, apiBase, userList = { data: { items: [] } } ]) =>
+    withLatestFrom(state$.pipe(pluck("config", "apiBase")), state$.pipe(pluck("users", "list", "data", "items"))),
+    switchMap(([{ payload }, apiBase, userList = [] ]) =>
       concat(
         of(searchActions.searchPostsLoading()),
         ajax.getJSON(search(apiBase, payload)).pipe(
@@ -33,12 +33,7 @@ const searchPostsEpic = (action$, state$) =>
           mergeMap((posts) => {
             const actionsToDispatch = [];
 
-            // Cancel any previous user request
-            if (userList.loading) {
-              actionsToDispatch.push(listActions.cancelUserList())
-            }
-
-            const usersIdSet = new Set(userList.data.items.map(({id}) => id));
+            const usersIdSet = new Set(userList.map(({id}) => id));
             // Check if author is already present in the store
             const authorIds = posts.reduce(
               (accum, { created_by }) => usersIdSet.has(created_by) ? accum : accum.concat(created_by),
