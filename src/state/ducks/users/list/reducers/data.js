@@ -7,10 +7,10 @@ const INITIAL_STATE = {
   },
 };
 
-const listUsersFulfilled = (state, { payload: { response } }) => {
+const listUsersFulfilled = ({ items, ...rest }, { payload: { response } }) => {
   return {
-    ...state,
-    items: response,
+    ...rest,
+    items: items.concat(response)
   };
 };
 

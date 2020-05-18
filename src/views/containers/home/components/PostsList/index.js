@@ -6,13 +6,16 @@ import Writer from "./writer";
 
 function PostsList(props) {
   const { posts, loading, error } = props;
+
   if (loading)
     return (
       <Loader inverted active>
         Loading...
       </Loader>
     );
+  
   if (error) return <Message negative>{error}</Message>;
+  
   return posts.items.length ? (
     <Segment inverted>
       <List inverted divided relaxed animated>
