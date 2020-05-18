@@ -8,6 +8,7 @@ import { routerMiddleware, ConnectedRouter } from "connected-react-router";
 import { createLogger } from "redux-logger";
 import { composeWithDevTools } from "redux-devtools-extension/developmentOnly";
 
+import AppContainer from "views/pages/app-container";
 import rootReducer, { rootEpic } from "state";
 import Router from "utils/router";
 
@@ -36,7 +37,9 @@ epicMiddleware.run(rootEpic);
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <Router />
+      <AppContainer>
+        <Router />
+      </AppContainer>
     </ConnectedRouter>
   </Provider>,
   document.getElementById("root")
