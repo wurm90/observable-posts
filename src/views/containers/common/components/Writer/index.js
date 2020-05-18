@@ -14,8 +14,10 @@ function Writer(props) {
       </Header>
     );
   } else if (loading) writtenBy = <Loader inverted active size="tiny" />;
-  else if (list.items.length > 0)
-    writtenBy = list.items.find((item) => item.id === author).name;
+  else if (list.items.length > 0) {
+    let aName = list.items.find((item) => item.id === author);
+    writtenBy = aName ? aName.name : null;
+  }
   return (
     <div className="writer-container">
       written by <b>{writtenBy}</b>

@@ -1,11 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
+import { push } from "connected-react-router";
 import { Segment, List, Loader, Message } from "semantic-ui-react";
 import { searchSelectors } from "state/ducks/posts/search";
-import Writer from "./writer";
+import Writer from "views/containers/common/components/Writer";
 
 function PostsList(props) {
-  const { posts, loading, error } = props;
+  const { posts, loading, error, push } = props;
   if (loading)
     return (
       <Loader inverted active>
@@ -17,7 +18,11 @@ function PostsList(props) {
     <Segment inverted>
       <List inverted divided relaxed animated>
         {posts.items.map(({ id, title, created_by }) => (
-          <List.Item key={id} style={{ cursor: "pointer" }}>
+          <List.Item
+            key={id}
+            style={{ cursor: "pointer" }}
+            onClick={() => push(`/post/${id}`)}
+          >
             <List.Header>{title}</List.Header>
             <Writer author={created_by} />
           </List.Item>
@@ -35,4 +40,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(PostsList);
+export default connect(mapStateToProps, { push })(PostsList);

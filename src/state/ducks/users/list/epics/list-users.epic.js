@@ -7,6 +7,7 @@ import {
   catchError,
   withLatestFrom,
   pluck,
+  filter,
 } from "rxjs/operators";
 import listActions from "../actions";
 import { ListActionTypes } from "../types";
@@ -16,6 +17,11 @@ import { API_PATHS } from "utils/constants";
 const listUsersEpic = (action$, state$) =>
   action$.pipe(
     ofType(ListActionTypes.LIST_USERS),
+    withLatestFrom(state$.pipe(pluck("users", "list", "data", "items"))),
+    filter(([action, data]) => {
+      console.log(data);
+      return data.length === 0;
+    }),
     withLatestFrom(state$.pipe(pluck("config", "apiBase"))),
     switchMap(([{ payload }, apiBase]) =>
       concat(

@@ -1,10 +1,22 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Container } from "semantic-ui-react";
 
-export default function ViewContainer(props) {
-  return (
-    <Container className="view-container">
-      <div className="view-content">{props.children}</div>
-    </Container>
-  )
+import { listActions } from "state/ducks/users/list";
+
+class ViewContainer extends React.PureComponent {
+  componentDidMount() {
+    this.props.listUsers();
+  }
+  render() {
+    return (
+      <Container className="view-container">
+        <div className="view-content">{this.props.children}</div>
+      </Container>
+    );
+  }
 }
+
+export default connect(null, {
+  listUsers: listActions.listUsers,
+})(ViewContainer);
