@@ -9,6 +9,8 @@ const API_PATHS = {
 const ROUTE_PATHS = {
   HOME: "/",
   POST: "/post/:id",
+  CREATE: "/create",
+  EDIT: "/edit/:id",
 };
 
 export { BASE_URL, API_PATHS, ROUTE_PATHS };
