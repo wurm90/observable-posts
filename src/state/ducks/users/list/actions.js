@@ -1,8 +1,14 @@
 import { ListActionTypes } from "./types";
 
-const listUsers = () => ({
+const listUsers = (ids) => ({
   type: ListActionTypes.LIST_USERS,
+  payload: ids
 });
+
+const cancelUserList = () => ({
+  type: ListActionTypes.LIST_USERS_CANCEL,
+});
+
 
 const listUsersFulfilled = (response = {}) => {
   return {
@@ -23,6 +29,7 @@ const listUsersFailed = (error) => ({
 });
 
 export default {
+  cancelUserList,
   listUsers,
   listUsersFulfilled,
   listUsersLoading,

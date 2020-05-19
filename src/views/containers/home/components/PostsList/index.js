@@ -5,15 +5,16 @@ import { Segment, List, Loader, Message } from "semantic-ui-react";
 import { searchSelectors } from "state/ducks/posts/search";
 import Writer from "views/containers/common/components/Writer";
 
-function PostsList(props) {
-  const { posts, loading, error, push } = props;
+function PostsList({ posts, loading, error, push }) {
   if (loading)
     return (
       <Loader inverted active>
         Loading...
       </Loader>
     );
+  
   if (error) return <Message negative>{error}</Message>;
+  
   return posts.items.length ? (
     <Segment inverted>
       <List inverted divided relaxed animated>

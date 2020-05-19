@@ -40,7 +40,9 @@ class Comments extends React.PureComponent {
 const mapStateToProps = (state) => ({
   comments: listPostCommentsSelectors.getPostCommentsData(state),
   users: listSelectors.getListData(state),
-  loading: listPostCommentsSelectors.getPostCommentsLoading(state),
+  loading:
+    listPostCommentsSelectors.getPostCommentsLoading(state) ||
+    listSelectors.getListLoading(state),
   error: listPostCommentsSelectors.getPostCommentsError(state),
 });
 

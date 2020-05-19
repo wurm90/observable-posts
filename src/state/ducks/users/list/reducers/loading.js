@@ -12,4 +12,5 @@ export const loading = createReducer(INITIAL_STATE.loading, {
   [ListActionTypes.LIST_USERS_LOADING]: setLoading,
   [ListActionTypes.LIST_USERS_FULFILLED]: unsetLoading,
   [ListActionTypes.LIST_USERS_FAILED]: unsetLoading,
+  [ListActionTypes.LIST_USERS_CANCEL]: unsetLoading
 });
