@@ -54,7 +54,7 @@ class Post extends React.PureComponent {
           {post.text}
           <Divider />
           <Header as="h5" floated="right">
-            <Writer author={post.created_by} />
+            <Writer userId={post.created_by} />
           </Header>
         </Segment>
         <Comments />

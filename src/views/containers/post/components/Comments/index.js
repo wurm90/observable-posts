@@ -1,11 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Button, Comment, Form, Header, Segment } from 'semantic-ui-react'
+import { Comment, Header } from 'semantic-ui-react'
 
 import {
-  listPostCommentsSelectors
+  listPostCommentsSelectors as commentsSelectors
 } from "state/ducks/posts/comments";
-import { listSelectors } from "state/ducks/users/list";
+import { listSelectors as userSelectors } from "state/ducks/users/list";
 
 class Comments extends React.PureComponent {
   buildComments = () => {
@@ -14,7 +14,7 @@ class Comments extends React.PureComponent {
       return <div>Loading...</div>
     else {
       return comments.items.map(item => {
-        const user = users.items.find(data => data.id === item.comment_by);
+        const user = users.find(data => data.id === item.comment_by);
         return (<Comment className="post-comment" key={item.id}>
           <Comment.Avatar src={user.avatar} />
           <Comment.Content>
@@ -37,13 +37,13 @@ class Comments extends React.PureComponent {
   }
 };
 
-const mapStateToProps = (state) => ({
-  comments: listPostCommentsSelectors.getPostCommentsData(state),
-  users: listSelectors.getListData(state),
-  loading:
-    listPostCommentsSelectors.getPostCommentsLoading(state) ||
-    listSelectors.getListLoading(state),
-  error: listPostCommentsSelectors.getPostCommentsError(state),
-});
+const mapStateToProps = (state) => {
+  const { loading, ...rest } = commentsSelectors.getPostComments(state);
+  return {
+    loading: loading || userSelectors.getUserListLoading(state),
+    users: userSelectors.getUserListData(state),
+    ...rest
+  };
+};
 
 export default connect(mapStateToProps)(Comments);

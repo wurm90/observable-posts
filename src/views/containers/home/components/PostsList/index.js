@@ -25,7 +25,7 @@ function PostsList({ posts, loading, error, push }) {
             onClick={() => push(`/post/${id}`)}
           >
             <List.Header>{title}</List.Header>
-            <Writer author={created_by} />
+            <Writer userId={created_by}/>
           </List.Item>
         ))}
       </List>
@@ -33,12 +33,6 @@ function PostsList({ posts, loading, error, push }) {
   ) : null;
 }
 
-const mapStateToProps = (state) => {
-  return {
-    posts: searchSelectors.getPostsData(state),
-    loading: searchSelectors.getPostsLoading(state),
-    error: searchSelectors.getPostsError(state),
-  };
-};
+const mapStateToProps = (state) => searchSelectors.getPosts(state);
 
 export default connect(mapStateToProps, { push })(PostsList);

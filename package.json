@@ -11,6 +11,7 @@
     "history": "^4.10.1",
     "moment": "^2.25.3",
     "node-sass": "^4.14.1",
+    "re-reselect": "^4.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",

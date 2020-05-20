@@ -1,10 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Loader, Header, Icon } from "semantic-ui-react";
-import { listSelectors } from "state/ducks/users/list";
+import { listSelectors as userSelectors } from "state/ducks/users/list";
 
-function Writer(props) {
-  const { author, list, loading, error } = props;
+function Writer({ user, loading, error }) {
   let writtenBy = null;
   if (error) {
     writtenBy = (
@@ -14,10 +13,10 @@ function Writer(props) {
       </Header>
     );
   } else if (loading) writtenBy = <Loader inverted active size="tiny" />;
-  else if (list.items.length > 0) {
-    let aName = list.items.find((item) => item.id === author);
-    writtenBy = aName ? aName.name : null;
+  else {
+    writtenBy = user ? user.name : null;
   }
+
   return (
     <div className="writer-container">
       written by <b>{writtenBy}</b>
@@ -25,12 +24,10 @@ function Writer(props) {
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    list: listSelectors.getListData(state),
-    loading: listSelectors.getListLoading(state),
-    error: listSelectors.getListError(state),
-  };
-};
+const mapStateToProps = (state, props) => ({
+  user: userSelectors.getUserById(state, props),
+  loading: userSelectors.getUserListLoading(state),
+  error: userSelectors.getUserListError(state),
+});
 
 export default connect(mapStateToProps)(Writer);
